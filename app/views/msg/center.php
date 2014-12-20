@@ -6,6 +6,7 @@
   <?php echo HTML::script('js/notify.min.js')?>
   <?php echo HTML::style('dist/semantic.min.css')?>
   <?php echo HTML::script('dist/semantic.min.js')?>
+
   <script>
   
  function notifyPerms() {
@@ -137,8 +138,24 @@ source.addEventListener('message', function(e) {
       var title = data.from + ' says....';
       notifyMe(title,data.msg,'https://cdn3.iconfinder.com/data/icons/defcon/512/mail-128.png','normal');
     }
-    var div = document.getElementById('messages');
-    div.innerHTML = div.innerHTML + "<b>" + data.from + "</b> :: " + data.msg + '</br>';
+
+    if (document.getElementById(data.from + '.messages')) {
+      var div = document.getElementById(data.from + '.messages')
+      div.innerHTML = div.innerHTML + data.msg + '</br>';
+    } else {
+      
+      var container = document.getElementById('userlist');
+      container.innerHTML = container.innerHTML + '<a class="item " data-tab="' + data.from +'">' + data.from +'</a>'; 
+      var container = document.getElementById('userhistory');
+      container.innerHTML = container.innerHTML + '<div class="ui bottom attached tab segment" id= "' + data.from +'.messages" data-tab="' + data.from +'"></div>'; 
+      var div = document.getElementById(data.from + '.messages');
+      div.innerHTML = div.innerHTML + data.msg + '</br>';
+
+      reloadtabs();
+    }
+
+
+    
   };
   
 }, false);
@@ -181,13 +198,13 @@ $("#quickmsg").submit(function(event){
     request.done(function (response, textStatus, jqXHR){
         // log a message to the console
         //alert("Message Sent!");
-        $(".mainmsg").notify(
+        $("#sendbtn").notify(
           " Message Sent!", 
           { position:"bottom", className:'success' }
         );
 
-        var div = document.getElementById('messages');
-        div.innerHTML = div.innerHTML + "<b>" + "You" + "</b> :: " + $("#quickmsg textarea").val() + "</br>";
+        //var div = document.getElementById('sen.messages');
+        //div.innerHTML = div.innerHTML + "<b>" + "You" + "</b> :: " + $("#quickmsg textarea").val() + "</br>";
         $("#quickmsg textarea").val('');
     });
 
@@ -269,7 +286,7 @@ window.onbeforeunload = function(e) {
       </div>
     </div>
 
-          
+
       <div id = "permission" style="font-family:Cambria">
         <h3>Permission Required</h3>
         <p>This site makes the use of notifications for better user interaction. Please grant access to the feature
@@ -288,54 +305,42 @@ window.onbeforeunload = function(e) {
         
       }
 
-      #QuickMsg input {
-        width: 85%;
         
-      }
-
-      #QuickMsg textarea {
-        width: 90%;
-        
-      }
-
+      
       </style>
         <div class = "ui grid">
 
 
-        <div class = "six wide column" id = "QuickMsg" class = 'mainmsg'>
+        <div class = "six wide column" id = "QuickMsg">
            
 
             <div class="ui warning icon message">
             <div class="content">
-            <div class="header">Please Note</div>
-              Kindly do not close this browser window!
+            <div class="header closable">Please Note</div>
+              <i class="warning icon"></i>Kindly do not close this browser window!
             </div>
           </div>
                    
-          <form id="quickmsg" class = 'messagebox'>
-            <table width="95%">
-              
-              <tr>
-                
-                <td colspan=3><textarea rows="10" cols="15" name="msg"></textarea></td>
-                <td>
-                  <select style='font-family:Calibri; width:110%;height:75%' name="to[]" multiple="multiple">
+          <form id="quickmsg" class = 'ui form segment blue messagebox'>
+            <h2 class="ui header">
+            <i class="mail icon"></i>
+            <div class="content">
+              Quick Message
+            <div class="sub header">Please enter your message here!</div>
+            </div>
+          </h2>
+
+            <textarea class = 'blue field' rows="10" cols="15" name="msg"></textarea>
+            <select class = 'ui dropdown blue' style='font-family:Calibri; width:110%;height:75%' name="to[]" multiple="multiple">
                     
                     <?php foreach ($users as $user) {?>
                     <option value='<?php echo $user->username;?>'><?php echo $user->username;?></option>
                     <?php }?>
 
                   </select>
-                </td>
-              </tr>
-              
-              <tr>
-                <td width=20%>
-                <button class="ui labeled icon button blue submit"><i class="send icon"></i>Send</button>
-                <td width=60%></td>
-              </tr>
+                  <button id = "sendbtn" class="ui labeled icon button blue submit"><i class="send icon"></i>Send</button>
 
-            </table>
+            
           </form>
         </div>
         
@@ -365,26 +370,63 @@ window.onbeforeunload = function(e) {
         }
        </style>
 
-    
+      
        <div class = "nine wide column">
-       <div class = "ui blue segment" id = 'messagehistory'>
+       <div class = "ui raised blue segment" id = 'messagehistory'>
+          
+
           <h2 class="ui header">
             <i class="history icon"></i>
             <div class="content">
               Message History
-            <div class="sub header">The messages will be logged here!</div>
+            <div class="sub header">The messages you received will be displayed here!</div>
             </div>
           </h2>
-        
 
+          <br>
+            
+            <div id = 'userlist' class="ui top attached blue users menu">
+              <!--<a class="item active" data-tab="manish">Manish</a>-->
+              
+              
+              
+            </div>
+
+          <div id = 'userhistory'>
+            <!--<div class="ui bottom attached active tab segment" data-tab="manish">Manish messages here.</div>-->
+            
+          </div>
           
-          <div id="messages">
+
+
+      <script>
+
+      function reloadtabs() {
+        $('.users.menu .item').tab({history:false});
+      }
+
+
+        $(document).ready(function(){
+            $('.users.menu .item').tab({history:false});
+        });
+      </script>
 
           </div>
+          
+          </div>
       </div>
+
       </div>
+
+
+      <br>
+      <br>
+
+
+
+
+
       
-      
-      </div>
+
   </body>
 </html>
