@@ -4,7 +4,8 @@
   <title>IC Dashboard</title>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   <?php echo HTML::script('js/notify.min.js')?>
-
+  <?php echo HTML::style('dist/semantic.min.css')?>
+  <?php echo HTML::script('dist/semantic.min.js')?>
   <script>
   
  function notifyPerms() {
@@ -143,6 +144,12 @@ source.addEventListener('message', function(e) {
 }, false);
 
 $(document).ready(function(){
+
+$('.ui.dropdown')
+  .dropdown()
+;
+
+
   // variable to hold request
 var request;
 // bind to the submit event of our form
@@ -237,6 +244,32 @@ window.onbeforeunload = function(e) {
   
   </head>
   <body onload= 'notifyPerms()'>
+    
+    <div class="ui large inverted blue menu">
+      <a class="item">
+        <i class="home icon"></i> Home
+      </a>
+      <a class="active item">
+        <i class="mail icon"></i> Messages
+      </a>
+      <a class="item">
+        <i class="info icon"></i> About
+      </a>
+      <div class="right menu">
+        
+        <div class="ui dropdown item">
+          <i class="user icon"></i><?php echo $firstname ?> <i class="dropdown icon"></i>
+          <div class="menu">
+            
+            <a class="item"><i class="edit icon"></i>Edit Profile</a>
+            <a class="item"><i class="options icon"></i>Settings</a>
+            <a class="item"><i class="shutdown icon"></i>Close</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+          
       <div id = "permission" style="font-family:Cambria">
         <h3>Permission Required</h3>
         <p>This site makes the use of notifications for better user interaction. Please grant access to the feature
@@ -252,26 +285,33 @@ window.onbeforeunload = function(e) {
       #QuickMsg {
         float:left;
         width: 40%;
-        font-family: Calibri;
+        
       }
 
       #QuickMsg input {
         width: 85%;
-        font-family: Calibri;
+        
       }
 
       #QuickMsg textarea {
         width: 90%;
-        font-family: Calibri;
+        
       }
 
       </style>
-        <div id = "QuickMsg" class = 'mainmsg'>
-           <h5>Welcome <?php echo $firstname ?>,</h5>
+        <div class = "ui grid">
 
-            <h3 style="font-family:Calibri">PLEASE DO NOT CLOSE THIS WINDOW!</h3> 
 
-          <span style="padding-left:3px">Quick Message</span>
+        <div class = "six wide column" id = "QuickMsg" class = 'mainmsg'>
+           
+
+            <div class="ui warning icon message">
+            <div class="content">
+            <div class="header">Please Note</div>
+              Kindly do not close this browser window!
+            </div>
+          </div>
+                   
           <form id="quickmsg" class = 'messagebox'>
             <table width="95%">
               
@@ -290,7 +330,8 @@ window.onbeforeunload = function(e) {
               </tr>
               
               <tr>
-                <td width=20%><input style='margin-right:60%' type="submit" value="Send" /></td>
+                <td width=20%>
+                <button class="ui labeled icon button blue submit"><i class="send icon"></i>Send</button>
                 <td width=60%></td>
               </tr>
 
@@ -307,28 +348,43 @@ window.onbeforeunload = function(e) {
               </tr>
        -->
        <style>
+       #QuickMsg {
+        margin: 10px;
+       }
+
         #messages {
-          font-family: Calibri;
-          font-size: 0.9em;
+          
+          font-size: 1em;
         }
 
         #messagehistory {
-          border-left: 2px solid;
+          
           float: left;
-          margin-left: 10px;
-          padding-left: 30px;
-          font-family: Cambria;
+          
+          
         }
        </style>
-       <div id = 'messagehistory'>
-          <h3> Message History</h3>
+
+    
+       <div class = "nine wide column">
+       <div class = "ui blue segment" id = 'messagehistory'>
+          <h2 class="ui header">
+            <i class="history icon"></i>
+            <div class="content">
+              Message History
+            <div class="sub header">The messages will be logged here!</div>
+            </div>
+          </h2>
+        
+
+          
           <div id="messages">
 
           </div>
       </div>
+      </div>
       
-              
-
-
+      
+      </div>
   </body>
 </html>
