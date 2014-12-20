@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html style="font-family:Calibri">
   <head>
-  <title>IC Dashboard</title>
+  <title>Message Center</title>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   <?php echo HTML::script('js/notify.min.js')?>
   <?php echo HTML::style('dist/semantic.min.css')?>
