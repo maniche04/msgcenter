@@ -280,7 +280,7 @@ window.onbeforeunload = function(e) {
             
             <a class="item"><i class="edit icon"></i>Edit Profile</a>
             <a class="item"><i class="options icon"></i>Settings</a>
-            <a class="item"><i class="shutdown icon"></i>Close</a>
+            <a class="item" href="<?php echo URL::to('logout') ?>"><i class="shutdown icon"></i>Log Out</a>
           </div>
         </div>
       </div>

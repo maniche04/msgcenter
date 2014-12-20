@@ -148,6 +148,7 @@ Route::get('login', array('as' => 'login', function () {
 
 Route::get('logout', array('as' => 'logout', function () {
 Auth::logout();
+return Redirect::to('login');
 
  }))->before('auth');
 

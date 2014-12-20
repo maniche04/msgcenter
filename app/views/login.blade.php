@@ -2,35 +2,74 @@
 <html>
 <head>
 	<title>Message Center :: Login</title>
-</head>
-<body style="font-family:Calibri">
+<head>
+  <title>Login</title>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <?php echo HTML::script('js/notify.min.js')?>
+  <?php echo HTML::style('dist/semantic.min.css')?>
+  <?php echo HTML::script('dist/semantic.min.js')?>
 	
 	
-    <h4>LOGIN HERE</h4>
+   
+<div class="ui one column middle aligned relaxed fitted stackable grid" style="margin:33%; margin-top:10%">
+      <div class="column">
+        
+            <div class="ui middle error inverted blue form segment">
+            <h2 class="ui white inverted header">
+      <i class="settings icon"></i>
+      <div class="content">
+        Account Login
+        <div class="sub header">Please provide your login credentials!</div>
+      </div>
 
-    <!-- check for login error flash var -->
-    @if (Session::has('flash_error'))
-        <div id="flash_error">{{ Session::get('flash_error') }}</div>
-    @endif
+
+    </h2>
+    
+    <div class="ui white inverted divider"></div>
 
     {{ Form::open(array('url' => 'login', 'method' => 'post')) }}
+      @if (Session::has('flash_error'))
+      <div class="ui error message">
+        <div class="header">Access Denied   </div>
+        <p>{{ Session::get('flash_error') }}</p>
+      </div>
+      @endif
+      <div class="field">
+        <label>Username</label>
+        <input name = 'username' placeholder="Username" type="text">
+      </div>
+      <div class="field">
+        <label>Password</label>
+        <input name = 'password' type="password">
+      </div>
+      
 
-    <!-- username field -->
-    <p>
-        {{ Form::label('username', 'Username') }}<br/>
-        {{ Form::text('username', Input::old('username')) }}
-    </p>
+      <input type="submit" value="Login" class = 'ui submit inverted white button'>
 
-    <!-- password field -->
-    <p>
-        {{ Form::label('password', 'Password') }}<br/>
-        {{ Form::password('password') }}
-    </p>
+       {{ Form::close() }}
+    </div>
 
-    <!-- submit button -->
-    <p>{{ Form::submit('Login') }}</p>
 
-    {{ Form::close() }}
+      
+    </div>
+   
 
+
+    
+
+    
+   
+
+    
+  
+
+
+
+
+
+
+
+
+    
 </body>
 </html>
