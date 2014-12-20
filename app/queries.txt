@@ -1,0 +1,3 @@
+
+//QUERY TO GET ALL OVERDUE BILLS
+SELECT os.bill_date, cus.cr_period, curdate() as curdate, cus.acc_code,cus.accname, cus.location, os.bill_no, (DATEDIFF(curdate(),Date(os.bill_date)) - cus.cr_period) as overdue, os.curamt as amount FROM jiz_customers AS cus INNER JOIN jiz_customers_os as os WHERE cus.acc_code = os.acc_code AND cus.cr_period > 0 AND os.curamt > 5 AND (DATEDIFF(curdate(),Date(os.bill_date)) - cus.cr_period) > 0;
