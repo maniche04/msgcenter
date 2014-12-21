@@ -139,6 +139,14 @@ source.addEventListener('message', function(e) {
       notifyMe(title,data.msg,'https://cdn3.iconfinder.com/data/icons/defcon/512/mail-128.png','normal');
     }
 
+    if (document.getElementById('userlist')) {
+
+    } else {
+      var div = document.getElementById('messagehistory');
+      div.innerHTML = div.innerHTML + '<br><div id = "userlist" class="ui top attached blue users menu"></div>';
+      div.innerHTML = div.innerHTML + '<div id = "userhistory"></div>';
+    }
+
     if (document.getElementById(data.from + '.messages')) {
       var div = document.getElementById(data.from + '.messages')
       div.innerHTML = div.innerHTML + data.msg + '</br>';
@@ -161,6 +169,11 @@ source.addEventListener('message', function(e) {
 }, false);
 
 $(document).ready(function(){
+
+$(".close.icon").click(function(){
+  $(this).parent().hide();
+});
+
 
 $('.ui.dropdown')
   .dropdown()
@@ -300,7 +313,7 @@ window.onbeforeunload = function(e) {
       
       <style type="text/css">
       #QuickMsg {
-        float:left;
+        
         width: 40%;
         
       }
@@ -308,18 +321,24 @@ window.onbeforeunload = function(e) {
         
       
       </style>
+
+        <div class="ui middle info icon message">
+            <i class="close icon"></i>
+            <div class="content">
+            <div class="header closable">Please Note</div>
+              <i class="warning icon"></i>To continue receiving further notifications, kindly leave this browser window open!
+            </div>
+            </div>
+
+
+
         <div class = "ui grid">
 
 
-        <div class = "six wide column" id = "QuickMsg">
+        <div class = "ui six wide column" id = "QuickMsg">
            
 
-            <div class="ui warning icon message">
-            <div class="content">
-            <div class="header closable">Please Note</div>
-              <i class="warning icon"></i>Kindly do not close this browser window!
-            </div>
-          </div>
+            
                    
           <form id="quickmsg" class = 'ui form segment blue messagebox'>
             <h2 class="ui header">
@@ -355,6 +374,7 @@ window.onbeforeunload = function(e) {
        <style>
        #QuickMsg {
         margin: 10px;
+        margin-top:0px;
        }
 
         #messages {
@@ -371,7 +391,7 @@ window.onbeforeunload = function(e) {
        </style>
 
       
-       <div class = "nine wide column">
+       <div class = "ui six wide column">
        <div class = "ui raised blue segment" id = 'messagehistory'>
           
 
@@ -379,25 +399,9 @@ window.onbeforeunload = function(e) {
             <i class="history icon"></i>
             <div class="content">
               Message History
-            <div class="sub header">The messages you received will be displayed here!</div>
+            <div class="sub header">The messages you receive will be displayed here!</div>
             </div>
           </h2>
-
-          <br>
-            
-            <div id = 'userlist' class="ui top attached blue users menu">
-              <!--<a class="item active" data-tab="manish">Manish</a>-->
-              
-              
-              
-            </div>
-
-          <div id = 'userhistory'>
-            <!--<div class="ui bottom attached active tab segment" data-tab="manish">Manish messages here.</div>-->
-            
-          </div>
-          
-
 
       <script>
 
