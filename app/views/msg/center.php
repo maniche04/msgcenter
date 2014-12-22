@@ -19,7 +19,7 @@
   // Let's check if the user is okay to get some notification
   else if (Notification.permission === "granted") {
     // If it's okay let's create a notification
-    notifyMe("Hi <?php echo $firstname ?>","The notification system is now running, and you'll be receiving your messages here. Please do not close your browser window!",'https://cdn3.iconfinder.com/data/icons/defcon/512/mail-128.png');
+    notifyMe("Hi <?php echo $firstname ?>","The notification system is now running, and you'll be receiving your messages here. Please do not close your browser window!",'<?php echo URL::asset("img/msgicon.png")?>');
 
     var thebutton = document.getElementById('permission');
     thebutton.style.display = 'none';
@@ -40,7 +40,7 @@
       // If the user is okay, let's create a notification
       if (permission === "granted") {
         
-        notifyMe("Hi <?php echo $firstname ?>","The notification system is now running, and you'll be receiving your messages here. Please do not close your browser window!",'http://png-3.findicons.com/files/icons/1035/human_o2/48/gnome_fs_executable.png');
+        notifyMe("Hi <?php echo $firstname ?>","The notification system is now running, and you'll be receiving your messages here. Please do not close your browser window!",'<?php echo URL::asset("img/msgicon.png")?>');
 
         var thebutton = document.getElementById('permission');
     thebutton.style.display = 'none';
@@ -136,7 +136,7 @@ source.addEventListener('message', function(e) {
     } else {
 
       var title = data.from + ' says....';
-      notifyMe(title,data.msg,'https://cdn3.iconfinder.com/data/icons/defcon/512/mail-128.png','normal');
+      notifyMe(title,data.msg,'<?php echo URL::asset("img/msgicon.png")?>','normal');
     }
 
     if (document.getElementById('userlist')) {
@@ -168,7 +168,41 @@ source.addEventListener('message', function(e) {
   
 }, false);
 
+
+
+  
+
+  
+
+
+
+
 $(document).ready(function(){
+
+function confirmLogout() {
+  $('.basic.test.modal')
+  .modal({
+    closable  : false,
+    onDeny    : function(){
+      //window.alert('Wait not yet!');
+      $.notify('Well choosen! ;)','success');
+      
+    },
+    onApprove : function() {
+      //window.alert('Approved!');
+      window.location.href = '<?php echo URL::to('logout') ?>';
+    }
+  })
+  .modal('show')
+;
+}
+
+$("#logoutbtn").click(function(e){
+  e.preventDefault();
+  confirmLogout();
+  
+});
+ 
 
 $(".close.icon").click(function(){
   $(this).parent().hide();
@@ -265,7 +299,7 @@ $("#quickmsg").submit(function(event){
 });
 
 window.onbeforeunload = function(e) {
-    return 'You will not receive further desktop notifications if you close this browser window.';
+    //return 'You will not receive further desktop notifications if you close this browser window.';
 };
 
 
@@ -293,7 +327,7 @@ window.onbeforeunload = function(e) {
             
             <a class="item"><i class="edit icon"></i>Edit Profile</a>
             <a class="item"><i class="options icon"></i>Settings</a>
-            <a class="item" href="<?php echo URL::to('logout') ?>"><i class="shutdown icon"></i>Log Out</a>
+            <a class="item" id="logoutbtn" href="<?php echo URL::to('logout') ?>"><i class="shutdown icon"></i>Log Out</a>
           </div>
         </div>
       </div>
@@ -427,10 +461,32 @@ window.onbeforeunload = function(e) {
       <br>
 
 
+      <div class="ui basic test modal">
+  
+  <div class="header">
+    Confirm Logout
+  </div>
+  <div class="content">
+    <div class="image">
+      <i class="shutdown icon"></i>
+    </div>
+    <div class="description">
+      <p>Are you sure you want to Logout?</p>
+    </div>
+  </div>
+  <div class="actions">
+    <div class="two fluid ui inverted buttons">
+      <div class="ui red basic inverted deny button" data-value="No">
+        <i class="remove icon"></i>
+        No
+      </div>
+      <div class="ui green basic inverted approve button" data-value = "Yes">
+        <i class="checkmark icon"></i>
+        Yes
+      </div>
+    </div>
+  </div>
+</div>
 
-
-
-      
-
-  </body>
+</body>
 </html>
