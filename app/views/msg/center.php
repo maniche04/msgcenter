@@ -143,13 +143,13 @@ source.addEventListener('message', function(e) {
 
     } else {
       var div = document.getElementById('messagehistory');
-      div.innerHTML = div.innerHTML + '<br><div id = "userlist" class="ui top attached blue users menu"></div>';
+      div.innerHTML = div.innerHTML + '<br><div id = "userlist" class="ui top attached blue users inverted menu"></div>';
       div.innerHTML = div.innerHTML + '<div id = "userhistory"></div>';
     }
 
     if (document.getElementById(data.from + '.messages')) {
       var div = document.getElementById(data.from + '.messages')
-      div.innerHTML = div.innerHTML + data.msg + '</br>';
+      div.innerHTML = div.innerHTML + '<i class="angle right icon"></i>' + data.msg + '</br>';
     } else {
       
       var container = document.getElementById('userlist');
@@ -157,7 +157,7 @@ source.addEventListener('message', function(e) {
       var container = document.getElementById('userhistory');
       container.innerHTML = container.innerHTML + '<div class="ui bottom attached tab segment" id= "' + data.from +'.messages" data-tab="' + data.from +'"></div>'; 
       var div = document.getElementById(data.from + '.messages');
-      div.innerHTML = div.innerHTML + data.msg + '</br>';
+      div.innerHTML = div.innerHTML + '<i class="angle right icon"></i>' + data.msg + '</br>';
 
       reloadtabs();
     }
@@ -253,6 +253,7 @@ $("#quickmsg").submit(function(event){
         //var div = document.getElementById('sen.messages');
         //div.innerHTML = div.innerHTML + "<b>" + "You" + "</b> :: " + $("#quickmsg textarea").val() + "</br>";
         $("#quickmsg textarea").val('');
+        $("#mainmsgcounter" ).addClass( "hidden");
     });
 
     // callback handler that will be called on failure
@@ -275,22 +276,29 @@ $("#quickmsg").submit(function(event){
     // prevent default posting of form
     event.preventDefault();
 });
-  $('textarea').keypress(function(e) {
+  $('textarea').keyup(function(e) {
     var tval = $('textarea').val(),
         tlength = tval.length,
         set = 220,
         remain = parseInt(set - tlength);
+        $('#mainmsgcounter').html(remain-11); 
+        $("#mainmsgcounter" ).removeClass( "hidden");
+             
+        
     
     if (remain <= 0 && e.which !== 0 && e.charCode !== 0) {
         $('textarea').val((tval).substring(0, tlength - 1))
     }
 
     if (remain <= 10){
-      $('textarea').css({'color':'red'});
+      $( "#mainmsgtext" ).addClass( "error" );
+      $( "#mainmsgcounter" ).removeClass( "green").addClass("red");
     }
 
     if (remain > 10){
-      $('textarea').css({'color':'black'});
+      $( "#mainmsgtext" ).removeClass( "error" );
+      $( "#mainmsgcounter" ).removeClass( "red").addClass("green");
+
     }
 
     if (e.keyCode == 13 || e.keyCode == 34 || e.keyCode == 39) return false;
@@ -383,7 +391,17 @@ window.onbeforeunload = function(e) {
             </div>
           </h2>
 
-            <textarea class = 'blue field' rows="10" cols="15" name="msg"></textarea>
+            <div id='mainmsgtext' class="field">
+              <div id="mainmsgcounter" class="floating ui hidden blue label"></div>
+              <textarea  rows="10" cols="15" name="msg"></textarea>
+              
+
+              
+            </div>
+
+            
+            
+
             <select class = 'ui dropdown blue' style='font-family:Calibri; width:110%;height:75%' name="to[]" multiple="multiple">
                     
                     <?php foreach ($users as $user) {?>
