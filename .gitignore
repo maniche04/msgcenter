@@ -1,9 +1,9 @@
-composer.phar
-.env.php
 .DS_Store
-.env.*.php
-/bootstrap/compiled.php
-/vendor
+composer.phar
 app/config/database.php
-composer.lock
+/vendor
 Thumbs.db
+/bootstrap/compiled.php
+.env.php
+composer.lock
+.env.*.php

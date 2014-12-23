@@ -16,7 +16,7 @@
         
             <div class="ui middle error inverted blue form segment">
                 <h2 class="ui white inverted header">
-                  <i class="shutdown icon"></i>
+                  <i class="key icon"></i>
                 <div class="content">
                     Account Login
                     <div class="sub header">Please provide your login credentials!</div>

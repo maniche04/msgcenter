@@ -185,7 +185,7 @@ function confirmLogout() {
     closable  : false,
     onDeny    : function(){
       //window.alert('Wait not yet!');
-      $.notify('Well choosen! ;)','success');
+      //$.notify('Well choosen! ;)','success');
       
     },
     onApprove : function() {
@@ -464,7 +464,7 @@ window.onbeforeunload = function(e) {
       <div class="ui basic test modal">
   
   <div class="header">
-    Confirm Logout
+    Please Confirm!
   </div>
   <div class="content">
     <div class="image">
