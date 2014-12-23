@@ -254,6 +254,7 @@ $("#quickmsg").submit(function(event){
         //div.innerHTML = div.innerHTML + "<b>" + "You" + "</b> :: " + $("#quickmsg textarea").val() + "</br>";
         $("#quickmsg textarea").val('');
         $("#mainmsgcounter" ).addClass( "hidden");
+        $( "#mainmsgtext" ).removeClass( "error" );
     });
 
     // callback handler that will be called on failure
@@ -281,24 +282,28 @@ $("#quickmsg").submit(function(event){
         tlength = tval.length,
         set = 220,
         remain = parseInt(set - tlength);
-        $('#mainmsgcounter').html(remain-11); 
+        $('#mainmsgcounter').html(remain); 
         $("#mainmsgcounter" ).removeClass( "hidden");
              
-        
-    
-    if (remain <= 0 && e.which !== 0 && e.charCode !== 0) {
+    if (remain <= 0) {
         $('textarea').val((tval).substring(0, tlength - 1))
     }
 
-    if (remain <= 10){
+    if (remain < 10){
+      
       $( "#mainmsgtext" ).addClass( "error" );
       $( "#mainmsgcounter" ).removeClass( "green").addClass("red");
     }
 
-    if (remain > 10){
+    if (remain >= 10){
       $( "#mainmsgtext" ).removeClass( "error" );
       $( "#mainmsgcounter" ).removeClass( "red").addClass("green");
 
+    }
+
+
+    if (remain == 220) {
+      $("#mainmsgcounter" ).addClass( "hidden");
     }
 
     if (e.keyCode == 13 || e.keyCode == 34 || e.keyCode == 39) return false;
