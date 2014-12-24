@@ -1,0 +1,5 @@
+// TO DO LIST FOR MESSAGE CENTER //
+
++ Add the time stamp for messages, ideally with ... seconds / minutes / hours ago feature.
++ Ability to load previous history.
++ Ability to reply back when looking at the history.
