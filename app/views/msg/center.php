@@ -143,7 +143,7 @@ source.addEventListener('message', function(e) {
 
     } else {
       var div = document.getElementById('messagehistory');
-      div.innerHTML = div.innerHTML + '<br><div id = "userlist" class="ui top attached blue users inverted menu"></div>';
+      div.innerHTML = div.innerHTML + '<div id = "userlist" class="ui top attached blue users inverted menu"></div>';
       div.innerHTML = div.innerHTML + '<div id = "userhistory"></div>';
     }
 
@@ -245,16 +245,22 @@ $("#quickmsg").submit(function(event){
     request.done(function (response, textStatus, jqXHR){
         // log a message to the console
         //alert("Message Sent!");
-        $("#sendbtn").notify(
-          " Message Sent!", 
-          { position:"bottom", className:'success' }
-        );
+        //$("#sendbtn").notify(
+        //  " Message Sent!", 
+        //  { position:"bottom", className:'success' }
+        //);
 
         //var div = document.getElementById('sen.messages');
         //div.innerHTML = div.innerHTML + "<b>" + "You" + "</b> :: " + $("#quickmsg textarea").val() + "</br>";
         $("#quickmsg textarea").val('');
         $("#mainmsgcounter" ).addClass( "hidden");
         $( "#mainmsgtext" ).removeClass( "error" );
+
+        
+        setTimeout("$('.shape').shape('flip right');", 600);
+        setTimeout("$('.shape').shape('flip right');", 2000);
+		
+
     });
 
     // callback handler that will be called on failure
@@ -264,6 +270,8 @@ $("#quickmsg").submit(function(event){
           " ErrorOccured : " + textStatus + ' ' + errorThrown, 
           { position:"bottom", className:'error' }
         );
+
+
 
     });
 
@@ -379,7 +387,7 @@ window.onbeforeunload = function(e) {
 
 
 
-        <div class = "ui grid">
+        <div class = "ui grid" style="margin-left:1%">
 
 
         <div class = "ui six wide column" id = "QuickMsg">
@@ -396,9 +404,10 @@ window.onbeforeunload = function(e) {
             </div>
           </h2>
 
+
             <div id='mainmsgtext' class="field">
-              <div id="mainmsgcounter" class="floating ui hidden blue label"></div>
-              <textarea  rows="10" cols="15" name="msg"></textarea>
+              
+              <textarea  rows="4" cols="15" name="msg"></textarea>
               
 
               
@@ -414,9 +423,26 @@ window.onbeforeunload = function(e) {
                     <?php }?>
 
                   </select>
-                  <button id = "sendbtn" class="ui labeled icon button blue submit"><i class="send icon"></i>Send</button>
 
-            
+                  <div class="ui text shape">
+				    <div class="sides">
+				        <div class="active side">
+				            <div class="content">
+				                <button id = "sendbtn" class="ui labeled icon button blue submit"><i class="send icon"></i>Send</button>
+				            </div>
+				        </div>
+				        <div class="side">
+				            <div id = "senderror" class="content">
+				                <button class="ui labeled icon button green"><i class="checkmark icon"></i>Sent</button>
+				            </div>
+				        </div>
+				    </div>
+				</div>	
+
+
+                  
+
+            <div id="mainmsgcounter" style="float:right" class="ui small pointing aligned hidden blue label"></div>
           </form>
         </div>
         
@@ -448,8 +474,8 @@ window.onbeforeunload = function(e) {
        </style>
 
       
-       <div class = "ui six wide column">
-       <div class = "ui raised blue segment" id = 'messagehistory'>
+       <div class = "ui nine wide column">
+       <div class = "ui raised blue segment" id = 'messagehistory' style="width:100%">
           
 
           <h2 class="ui header">
