@@ -149,7 +149,8 @@ source.addEventListener('message', function(e) {
 
     if (document.getElementById(data.from + '.messages')) {
       var div = document.getElementById(data.from + '.messages')
-      div.innerHTML = div.innerHTML + '<i class="angle right icon"></i>' + data.msg + '</br>';
+      div.innerHTML = div.innerHTML + '<div class="ui clearing divider"></div>'
+      div.innerHTML = div.innerHTML + '<div><div style="float:left;width: 77%;text-align:justify">' + data.msg + '</div><div style="float:right;vertical-align: middle;opacity:0.8" class="ui small left pointing aligned blue label">'+ data.time + '</div></div></br>';
     } else {
       
       var container = document.getElementById('userlist');
@@ -157,7 +158,7 @@ source.addEventListener('message', function(e) {
       var container = document.getElementById('userhistory');
       container.innerHTML = container.innerHTML + '<div class="ui bottom attached tab segment" id= "' + data.from +'.messages" data-tab="' + data.from +'"></div>'; 
       var div = document.getElementById(data.from + '.messages');
-      div.innerHTML = div.innerHTML + '<i class="angle right icon"></i>' + data.msg + '</br>';
+      div.innerHTML = div.innerHTML + '<div><div style="float:left;width: 77%;text-align:justify">' + data.msg + '</div><div style="float:right;vertical-align: middle;opacity:0.8" class="ui small left pointing aligned blue label">'+ data.time + '</div></div></br>';
 
       reloadtabs();
     }
@@ -167,14 +168,6 @@ source.addEventListener('message', function(e) {
   };
   
 }, false);
-
-
-
-  
-
-  
-
-
 
 
 $(document).ready(function(){
@@ -440,7 +433,7 @@ window.onbeforeunload = function(e) {
 				</div>	
 
 
-                  
+                 
 
             <div id="mainmsgcounter" style="float:right" class="ui small pointing aligned hidden blue label"></div>
           </form>

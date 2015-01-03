@@ -20,13 +20,16 @@ class MsgController extends BaseController {
 		$thisuser = Auth::user()->username;
 		$unread = DB::select("SELECT * FROM ic_notifications WHERE to_user = '" . $thisuser . "' AND read_status = 0 LIMIT 1");
 		if (!$unread) {
-			return View::make('msg/data',array('msg'=>'none','from'=>'none'));
+			return View::make('msg/data',array('msg'=>'none','from'=>'none','thetime'=>'none'));
 		}
 		$msg = $unread[0];
 		$message_id = $msg->id;
 		$message_from = $msg->from_user;
+		$message_date = $msg->created_at;
 		DB::statement("UPDATE ic_notifications SET read_status = '1' WHERE id = '" . $message_id . "'");
-		return View::make('msg/data',array('msg'=>$msg->msg, 'from'=>$message_from));
+		
+
+		return View::make('msg/data',array('msg'=>$msg->msg, 'from'=>$message_from,'thetime' => $message_date));
 		
 
 	}
@@ -58,9 +61,9 @@ class MsgController extends BaseController {
 		$to = Input::get('to');
 		$msg = Input::get('msg');
 		$from = Auth::user()->username;
-		
+		$date = $date = date('Y-m-d H:i:s');
 		foreach ($to as $to_user) {
-			if (DB::statement ("INSERT INTO ic_notifications (`from_user`,`to_user`,`msg`,`read_status`) VALUES ('" . $from . "','" . $to_user. "','" . $msg . "',0)")) {
+			if (DB::statement ("INSERT INTO ic_notifications (`from_user`,`to_user`,`msg`,`read_status`,`created_at`) VALUES ('" . $from . "','" . $to_user. "','" . $msg . "',0,'" . $date . "')")) {
 		 		echo "Saved successfully!";
 		 	} else {
 		 		echo "Error!";
